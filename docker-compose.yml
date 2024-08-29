@@ -1,9 +1,27 @@
 services:
   app:
     container_name: hono
-    build: /hono/Dockerfile
+    build:
+      context: ./hono
+      dockerfile: Dockerfile
     tty: true
     ports:
       - "3000:3000"
     volumes:
       - ./hono:/app
+
+  mysql:
+    container_name: mysql
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
+    platform: linux/amd64
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/data:/mysql
