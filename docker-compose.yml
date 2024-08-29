@@ -1,9 +1,9 @@
 services:
   app:
     container_name: hono
-    build: .
+    build: /hono/Dockerfile
     tty: true
     ports:
       - "3000:3000"
     volumes:
-      - .:/app
+      - ./hono:/app
