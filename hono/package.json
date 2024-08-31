@@ -2,11 +2,12 @@
   "name": "app",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "prisma:migrate": "prisma migrate dev",
     "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
     "prisma:reset": "prisma migrate reset --force",
-    "prisma:studio": "prisma studio",
-    "prisma:seed": "ts-node prisma/seed/seed.ts"
+    "prisma:seed": "ts-node prisma/seed/seed.ts",
+    "prisma:refresh": "prisma migrate reset --force && ts-node prisma/seed/seed.ts",
+    "prisma:studio": "prisma studio"
   },
   "dependencies": {
     "@hono/node-server": "^1.12.2",
