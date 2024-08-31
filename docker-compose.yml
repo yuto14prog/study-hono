@@ -1,5 +1,5 @@
 services:
-  app:
+  hono:
     container_name: hono
     build:
       context: ./hono
@@ -9,6 +9,11 @@ services:
       - "3000:3000"
     volumes:
       - ./hono:/app
+    depends_on:
+      - mysql
+    networks:
+      backend-network:
+        ipv4_address: ${HONO_IP}
 
   mysql:
     container_name: mysql
@@ -25,3 +30,14 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql/data:/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    networks:
+      backend-network:
+        ipv4_address: ${MYSQL_IP}
+
+networks:
+  backend-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: ${SUBNET}
